@@ -1,2 +1,2 @@
-# Licence-Plate-Recognition-using-ESP32-CAM
-Licence number Plate Recognition using ESP32-CAM and Circuit Digest Cloud API.
+# License-Plate-Recognition-using-ESP32-CAM
+License number Plate Recognition using ESP32-CAM and Circuit Digest Cloud API.

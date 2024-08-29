@@ -208,20 +208,22 @@ void loop() {
 // Function to capture and send photo to the server
 int sendPhoto() {
   camera_fb_t* fb = NULL;
-  
   // Turn on flash light and capture image
-  digitalWrite(flashLight, HIGH);
-  delay(1000);
+  // digitalWrite(flashLight, HIGH);
+  
+  delay(100);
   fb = esp_camera_fb_get();
+  delay(100);
+
   if (!fb) {
     Serial.println("Camera capture failed");
     return -1;
   }
-  
+
   // Display success message
   displayText("Image Capture Success");
   delay(300);
-  digitalWrite(flashLight, LOW);
+  // digitalWrite(flashLight, LOW);
 
   // Connect to server
   Serial.println("Connecting to server:" + serverName);
@@ -232,8 +234,8 @@ int sendPhoto() {
     Serial.println("Connection successful!");
     displayText("Connection successful!");
     delay(300);
-     displayText("Data Uploading !");
-    
+    displayText("Data Uploading !");
+
     // Increment count and prepare file name
     count++;
     Serial.println(count);
@@ -276,7 +278,7 @@ int sendPhoto() {
     // Wait for server response
     String response;
     long startTime = millis();
-    while (client.connected() && millis() - startTime < 10000) {
+    while (client.connected() && millis() - startTime < 4000) {
       if (client.available()) {
         char c = client.read();
         response += c;
@@ -284,7 +286,7 @@ int sendPhoto() {
     }
 
     // Extract and display NPR data from response
-    String NPRData = extractJsonStringValue(response, "\"Number Plate\"");
+    String NPRData = extractJsonStringValue(response, "\"number_plate\"");
     String imageLink = extractJsonStringValue(response, "\"view_image\"");
 
     // Serial.print("NPR DATA: ");
@@ -293,15 +295,17 @@ int sendPhoto() {
     // Serial.print("ImageLink: ");
     // Serial.println(imageLink);
 
-       Serial.print("ImageLink: ");
+    Serial.print("Response: ");
     Serial.println(response);
 
     displayText("NPR Data:\n\n" + NPRData);
 
     client.stop();
+    esp_camera_fb_return(fb);
     return 0;
   } else {
     Serial.println("Connection to server failed");
+    esp_camera_fb_return(fb);
     return -2;
   }
 }

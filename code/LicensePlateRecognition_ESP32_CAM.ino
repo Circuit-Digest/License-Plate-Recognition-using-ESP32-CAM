@@ -278,7 +278,7 @@ int sendPhoto() {
     // Wait for server response
     String response;
     long startTime = millis();
-    while (client.connected() && millis() - startTime < 4000) {
+    while (client.connected() && millis() - startTime < 5000) { // Modifify the Waiting time as per the response time
       if (client.available()) {
         char c = client.read();
         response += c;

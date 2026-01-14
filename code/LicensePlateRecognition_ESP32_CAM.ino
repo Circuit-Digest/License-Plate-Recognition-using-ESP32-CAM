@@ -55,7 +55,7 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &I2Cbus, OLED_RESET);
 const char* ssid = "xxx";         // Replace "xxx" with your WiFi SSID
 const char* password = "xxx";      // Replace "xxx" with your WiFi Password
 String serverName = "www.circuitdigest.cloud";  // Replace with your server domain
-String serverPath = "/readnumberplate";              // API endpoint path "/readqrcode" "/readnumberplate"
+String serverPath = "/api/v1/readnumberplate";              // API endpoint path "/readqrcode" "/readnumberplate"
 const int serverPort = 443;                     // HTTPS port
 String apiKey = "xxx";             // Replace "xxx" with your API key
 
